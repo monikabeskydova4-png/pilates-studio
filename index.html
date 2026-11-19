@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilates Studio</title>
+
+    <style>
+        :root {
+            --cream: #f8f5ef;
+            --white: #ffffff;
+            --sage: #7d866f;
+            --clay: #a77d69;
+            --ink: #302f2b;
+            --line: #e7dfd4;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--cream);
+            color: var(--ink);
+        }
+
+        header {
+            background-color: #ffffff;
+            min-height: 88px;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .logo {
+            color: var(--ink);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 21px;
+            letter-spacing: 4px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--ink);
+            font-size: 14px;
+            transition: color 180ms ease;
+        }
+
+        nav a:hover {
+            color: var(--clay);
+        }
+
+        .hero {
+            min-height: calc(100vh - 88px);
+            display: grid;
+            grid-template-columns: 48% 52%;
+            align-items: stretch;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 72px 10%;
+        }
+
+        .eyebrow {
+            margin: 0 0 22px;
+            color: var(--sage);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 580px;
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(48px, 5.4vw, 82px);
+            font-weight: 400;
+            line-height: 0.98;
+            letter-spacing: -2px;
+        }
+
+        .hero-copy {
+            max-width: 500px;
+            margin: 28px 0 36px;
+            color: #68665f;
+            font-size: 18px;
+            line-height: 1.75;
+        }
+
+        .cta {
+            display: inline-flex;
+            width: fit-content;
+            min-height: 54px;
+            align-items: center;
+            justify-content: center;
+            padding: 0 30px;
+            border: 1px solid var(--clay);
+            background: var(--clay);
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+        }
+
+        .cta:hover {
+            background: #916b58;
+            border-color: #916b58;
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            min-height: 620px;
+            background:
+                linear-gradient(90deg, rgba(48, 47, 43, 0.04), rgba(48, 47, 43, 0)),
+                url("assets/pilates-hero.jpg") center 42% / cover no-repeat;
+        }
+
+        @media (max-width: 980px) {
+            header {
+                min-height: 76px;
+                padding: 18px 5%;
+            }
+
+            nav {
+                gap: 16px;
+            }
+
+            nav a:nth-child(3),
+            nav a:nth-child(4) {
+                display: none;
+            }
+
+            .hero {
+                min-height: calc(100vh - 76px);
+                grid-template-columns: 52% 48%;
+            }
+
+            .hero-content {
+                padding: 56px 8%;
+            }
+
+            .hero-image {
+                min-height: 560px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 14px;
+                padding: 16px 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+                overflow-x: auto;
+            }
+
+            nav a {
+                white-space: nowrap;
+            }
+
+            nav a:nth-child(3),
+            nav a:nth-child(4) {
+                display: inline;
+            }
+
+            .hero {
+                min-height: auto;
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                min-height: 520px;
+                padding: 64px 24px;
+            }
+
+            h1 {
+                max-width: 470px;
+                font-size: clamp(44px, 14vw, 68px);
+            }
+
+            .hero-copy {
+                max-width: 440px;
+                font-size: 16px;
+            }
+
+            .hero-image {
+                min-height: 390px;
+                background-position: center 38%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cta {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a class="logo" href="#uvod">PILATES STUDIO</a>
+
+        <nav>
+            <a href="#treningy">Tréningy</a>
+            <a href="#trenerky">Trénerky</a>
+            <a href="#studio">O štúdiu</a>
+            <a href="#cennik">Cenník</a>
+            <a href="#rezervacia">Rezervácia</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="uvod" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <p class="eyebrow">Pilates pre telo aj myseľ</p>
+                <h1 id="hero-title">Nájdite svoju silu a rovnováhu</h1>
+                <p class="hero-copy">
+                    Jemné, vedomé a efektívne cvičenie pre silnejšie telo,
+                    lepšiu rovnováhu a pokojný každodenný život.
+                </p>
+                <a class="cta" href="#rezervacia">Rezervovať tréning</a>
+            </div>
+            <div class="hero-image" role="img" aria-label="Žena cvičiaca pilates v prírodnom štúdiu"></div>
+        </section>
+    </main>
+</body>
+</html>
