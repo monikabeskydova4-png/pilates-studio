@@ -1,257 +1,1135 @@
-
 <!DOCTYPE html>
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilates Studio</title>
-
+    <meta name="description" content="Objavte pilates, spoznajte trénerky a rezervujte si ukážkový termín v Pilates Studio.">
+    <title>Pilates Studio | Pohyb a komunita</title>
     <style>
         :root {
             --cream: #f8f5ef;
-            --white: #ffffff;
+            --white: #fff;
             --sage: #7d866f;
+            --sage-dark: #59614f;
             --clay: #a77d69;
             --ink: #302f2b;
+            --muted: #68665f;
             --line: #e7dfd4;
+            --soft-sage: #edf0e9;
+            --serif: Georgia, "Times New Roman", serif;
         }
 
         * {
             box-sizing: border-box;
         }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: var(--cream);
-            color: var(--ink);
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
         }
 
-        header {
-            background-color: #ffffff;
-            min-height: 88px;
-            padding: 22px 6%;
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--ink);
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid var(--sage-dark);
+            outline-offset: 3px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -60px;
+            left: 16px;
+            z-index: 10;
+            padding: 10px 14px;
+            background: var(--white);
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 5;
             display: flex;
-            justify-content: space-between;
+            min-height: 76px;
             align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 14px 6%;
             border-bottom: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.97);
         }
 
         .logo {
+            flex-shrink: 0;
             color: var(--ink);
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 21px;
-            letter-spacing: 4px;
+            font-family: var(--serif);
+            font-size: 19px;
+            letter-spacing: 3px;
             text-decoration: none;
-            white-space: nowrap;
         }
 
-        nav {
+        .site-nav {
             display: flex;
             align-items: center;
-            gap: 28px;
+            gap: clamp(12px, 2vw, 28px);
         }
 
-        nav a {
+        .site-nav a {
+            font-size: 13px;
             text-decoration: none;
-            color: var(--ink);
-            font-size: 14px;
-            transition: color 180ms ease;
         }
 
-        nav a:hover {
+        .site-nav a:hover,
+        .text-link:hover {
             color: var(--clay);
         }
 
         .hero {
-            min-height: calc(100vh - 88px);
             display: grid;
+            min-height: min(690px, calc(100vh - 76px));
             grid-template-columns: 48% 52%;
-            align-items: stretch;
+            background: var(--white);
         }
 
         .hero-content {
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
             justify-content: center;
             padding: 72px 10%;
         }
 
         .eyebrow {
-            margin: 0 0 22px;
-            color: var(--sage);
+            margin: 0 0 18px;
+            color: var(--sage-dark);
             font-size: 12px;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--serif);
+            font-weight: 400;
         }
 
         h1 {
             max-width: 580px;
             margin: 0;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: clamp(48px, 5.4vw, 82px);
-            font-weight: 400;
-            line-height: 0.98;
+            font-size: clamp(48px, 5.4vw, 78px);
             letter-spacing: -2px;
+            line-height: 1.02;
         }
 
         .hero-copy {
-            max-width: 500px;
-            margin: 28px 0 36px;
-            color: #68665f;
-            font-size: 18px;
-            line-height: 1.75;
-        }
-
-        .cta {
-            display: inline-flex;
-            width: fit-content;
-            min-height: 54px;
-            align-items: center;
-            justify-content: center;
-            padding: 0 30px;
-            border: 1px solid var(--clay);
-            background: var(--clay);
-            color: var(--white);
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
-        }
-
-        .cta:hover {
-            background: #916b58;
-            border-color: #916b58;
-            transform: translateY(-2px);
+            max-width: 490px;
+            margin: 24px 0 32px;
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.8;
         }
 
         .hero-image {
-            min-height: 620px;
-            background:
-                linear-gradient(90deg, rgba(48, 47, 43, 0.04), rgba(48, 47, 43, 0)),
-                url("assets/pilates-hero.jpg") center 42% / cover no-repeat;
+            min-height: 500px;
+            background: url("assets/pilates-hero.jpg") center 42% / cover no-repeat;
         }
 
-        @media (max-width: 980px) {
-            header {
-                min-height: 76px;
-                padding: 18px 5%;
+        .button {
+            display: inline-flex;
+            min-height: 50px;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 22px;
+            border: 1px solid var(--clay);
+            background: var(--clay);
+            color: var(--white);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            text-align: center;
+            text-decoration: none;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background: #916b58;
+        }
+
+        .button.secondary {
+            border-color: var(--sage);
+            background: transparent;
+            color: var(--sage-dark);
+        }
+
+        .button.secondary:hover {
+            background: var(--soft-sage);
+        }
+
+        .section {
+            padding: 88px 6%;
+        }
+
+        .section-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            max-width: 700px;
+            margin: 0 auto 42px;
+            text-align: center;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2,
+        .about-copy h2,
+        .contact-copy h2 {
+            margin: 0;
+            font-size: clamp(34px, 4vw, 52px);
+            line-height: 1.12;
+        }
+
+        .section-heading > p:last-child,
+        .section-lead {
+            margin: 16px auto 0;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        .about {
+            background: var(--soft-sage);
+        }
+
+        .about-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            align-items: center;
+            gap: 8%;
+        }
+
+        .about-mark {
+            display: grid;
+            min-height: 280px;
+            place-items: center;
+            border: 1px solid rgba(89, 97, 79, 0.35);
+            color: var(--sage-dark);
+            font-family: var(--serif);
+            font-size: clamp(46px, 8vw, 90px);
+            letter-spacing: 6px;
+        }
+
+        .about-copy h2 {
+            max-width: 600px;
+        }
+
+        .about-copy p {
+            color: var(--muted);
+        }
+
+        .training-grid,
+        .trainer-grid,
+        .price-grid,
+        .account-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .training-card,
+        .trainer-card,
+        .price-card,
+        .account-card {
+            border: 1px solid var(--line);
+            background: var(--white);
+        }
+
+        .training-photo {
+            display: block;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .training-card:nth-child(1) .training-photo {
+            object-position: 76% center;
+        }
+
+        .training-card:nth-child(2) .training-photo {
+            object-position: 20% center;
+        }
+
+        .training-card:nth-child(3) .training-photo {
+            object-position: 52% center;
+        }
+
+        .card-content {
+            display: flex;
+            height: calc(100% - 220px);
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 24px;
+        }
+
+        .card-content h3,
+        .trainer-card h3,
+        .price-card h3,
+        .account-card h3 {
+            margin: 0;
+            font-size: 25px;
+            line-height: 1.2;
+        }
+
+        .card-content p,
+        .trainer-card p,
+        .price-card p,
+        .account-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .facts {
+            width: 100%;
+            margin: 0 0 20px;
+            padding: 14px 0 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .facts p {
+            margin: 4px 0;
+        }
+
+        .card-content .button {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .notice {
+            padding: 14px 18px;
+            border-left: 3px solid var(--sage);
+            background: var(--soft-sage);
+            color: var(--sage-dark);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .notice.warm {
+            border-color: var(--clay);
+            background: #f5eee9;
+            color: #705341;
+        }
+
+        .trainer-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .trainer-card {
+            padding: 28px;
+        }
+
+        .trainer-initial {
+            display: grid;
+            width: 76px;
+            height: 76px;
+            margin-bottom: 20px;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--soft-sage);
+            color: var(--sage-dark);
+            font-family: var(--serif);
+            font-size: 28px;
+        }
+
+        .trainer-card .button {
+            width: 100%;
+        }
+
+        .pricing {
+            background: var(--white);
+        }
+
+        .price-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .price-card,
+        .account-card {
+            padding: 25px;
+        }
+
+        .price-card .price,
+        .price-pending {
+            margin: 18px 0;
+            color: var(--sage-dark);
+            font-family: var(--serif);
+            font-size: 24px;
+        }
+
+        .booking {
+            background: #f2eee7;
+        }
+
+        .booking-shell {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: clamp(22px, 5vw, 48px);
+            border: 1px solid var(--line);
+            background: var(--white);
+        }
+
+        .booking-steps {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 8px;
+            margin: 0 0 34px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .booking-steps li {
+            padding: 10px 6px;
+            border-bottom: 2px solid var(--line);
+            color: var(--muted);
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .booking-steps li[aria-current="step"] {
+            border-color: var(--sage-dark);
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .booking-panel h3 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        .booking-panel > p {
+            color: var(--muted);
+        }
+
+        .choice-list {
+            display: grid;
+            gap: 10px;
+            margin: 22px 0;
+        }
+
+        .choice {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            border: 1px solid var(--line);
+            cursor: pointer;
+        }
+
+        .choice:has(input:checked) {
+            border-color: var(--sage);
+            background: var(--soft-sage);
+        }
+
+        .choice input {
+            margin-top: 5px;
+            accent-color: var(--sage-dark);
+        }
+
+        .choice strong,
+        .choice span {
+            display: block;
+        }
+
+        .choice small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+        }
+
+        .date-field {
+            display: grid;
+            max-width: 320px;
+            gap: 8px;
+            margin: 22px 0;
+            font-weight: 700;
+        }
+
+        .date-field input {
+            min-height: 48px;
+            padding: 8px 12px;
+            border: 1px solid #aaa398;
+            background: var(--white);
+        }
+
+        .booking-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .booking-actions .button {
+            min-width: 140px;
+        }
+
+        .booking-message {
+            min-height: 24px;
+            margin: 16px 0 0;
+            color: #8a3c2b;
+            font-size: 14px;
+        }
+
+        .summary {
+            margin: 20px 0;
+            padding: 20px;
+            background: var(--cream);
+        }
+
+        .summary dl {
+            display: grid;
+            grid-template-columns: minmax(100px, 0.45fr) 1fr;
+            gap: 8px 16px;
+            margin: 0;
+        }
+
+        .summary dt {
+            color: var(--muted);
+        }
+
+        .summary dd {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .confirmation {
+            padding: 24px;
+            border: 1px solid var(--sage);
+            background: var(--soft-sage);
+        }
+
+        .confirmation h3 {
+            margin-top: 0;
+        }
+
+        .account-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .contact {
+            background: var(--soft-sage);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-copy p {
+            color: var(--muted);
+        }
+
+        .contact-details {
+            padding: 24px;
+            border: 1px solid rgba(89, 97, 79, 0.35);
+            background: rgba(255, 255, 255, 0.55);
+        }
+
+        .contact-details p {
+            margin: 8px 0;
+        }
+
+        .site-footer {
+            padding: 24px 6%;
+            background: var(--ink);
+            color: var(--white);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 900px) {
+            .site-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
             }
 
-            nav {
-                gap: 16px;
+            .site-nav {
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 4px 0;
             }
 
-            nav a:nth-child(3),
-            nav a:nth-child(4) {
-                display: none;
+            .site-nav a {
+                flex-shrink: 0;
             }
 
             .hero {
-                min-height: calc(100vh - 76px);
-                grid-template-columns: 52% 48%;
+                min-height: 0;
+                grid-template-columns: 1fr 1fr;
             }
 
             .hero-content {
-                padding: 56px 8%;
+                padding: 54px 8%;
             }
 
             .hero-image {
-                min-height: 560px;
+                min-height: 520px;
+            }
+
+            .training-grid,
+            .price-grid,
+            .account-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .booking-steps {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
 
-        @media (max-width: 700px) {
-            header {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 14px;
-                padding: 16px 20px;
+        @media (max-width: 620px) {
+            html {
+                scroll-padding-top: 130px;
+            }
+
+            .site-header {
+                padding: 12px 20px;
             }
 
             .logo {
-                font-size: 18px;
+                font-size: 17px;
             }
 
-            nav {
-                width: 100%;
-                justify-content: space-between;
-                gap: 10px;
-                overflow-x: auto;
+            .site-nav {
+                gap: 18px;
             }
 
-            nav a {
-                white-space: nowrap;
-            }
-
-            nav a:nth-child(3),
-            nav a:nth-child(4) {
-                display: inline;
+            .site-nav a {
+                font-size: 12px;
             }
 
             .hero {
-                min-height: auto;
                 grid-template-columns: 1fr;
             }
 
             .hero-content {
-                min-height: 520px;
-                padding: 64px 24px;
-            }
-
-            h1 {
-                max-width: 470px;
-                font-size: clamp(44px, 14vw, 68px);
-            }
-
-            .hero-copy {
-                max-width: 440px;
-                font-size: 16px;
+                min-height: 460px;
+                padding: 56px 24px;
             }
 
             .hero-image {
-                min-height: 390px;
+                min-height: 320px;
                 background-position: center 38%;
+            }
+
+            .section {
+                padding: 66px 20px;
+            }
+
+            .about-layout,
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .about-mark {
+                min-height: 170px;
+            }
+
+            .training-grid,
+            .trainer-grid,
+            .price-grid,
+            .account-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .training-photo {
+                height: 200px;
+            }
+
+            .card-content {
+                height: auto;
+                min-height: 260px;
+                padding: 22px;
+            }
+
+            .booking-shell {
+                padding: 22px 16px;
+            }
+
+            .booking-steps {
+                gap: 4px;
+            }
+
+            .booking-steps li {
+                font-size: 10px;
+            }
+
+            .booking-actions {
+                flex-direction: column-reverse;
+            }
+
+            .booking-actions .button {
+                width: 100%;
+            }
+
+            .summary dl {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+
+            .summary dd {
+                margin-bottom: 10px;
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .cta {
-                transition: none;
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
-
 <body>
-    <header>
-        <a class="logo" href="#uvod">PILATES STUDIO</a>
-
-        <nav>
+    <a class="skip-link" href="#hlavny-obsah">Preskočiť na obsah</a>
+    <header class="site-header">
+        <a class="logo" href="#domov">PILATES STUDIO</a>
+        <nav class="site-nav" aria-label="Hlavná navigácia">
+            <a href="#studio">O štúdiu</a>
             <a href="#treningy">Tréningy</a>
             <a href="#trenerky">Trénerky</a>
-            <a href="#studio">O štúdiu</a>
             <a href="#cennik">Cenník</a>
             <a href="#rezervacia">Rezervácia</a>
+            <a href="#profil">Profil</a>
+            <a href="#kontakt">Kontakt</a>
         </nav>
     </header>
 
-    <main>
-        <section class="hero" id="uvod" aria-labelledby="hero-title">
+    <main id="hlavny-obsah">
+        <section class="hero" id="domov" aria-labelledby="hero-title">
             <div class="hero-content">
-                <p class="eyebrow">Pilates pre telo aj myseľ</p>
+                <p class="eyebrow">Pohyb, ktorý spája</p>
                 <h1 id="hero-title">Nájdite svoju silu a rovnováhu</h1>
                 <p class="hero-copy">
-                    Jemné, vedomé a efektívne cvičenie pre silnejšie telo,
-                    lepšiu rovnováhu a pokojný každodenný život.
+                    Miesto pre vedomý pohyb, podporu a ženskú komunitu.
+                    Objavte rôzne podoby Pilates a vyberte si tréning, ktorý vám vyhovuje.
                 </p>
-                <a class="cta" href="#rezervacia">Rezervovať tréning</a>
+                <a class="button" href="#treningy">Objaviť tréningy</a>
             </div>
-            <div class="hero-image" role="img" aria-label="Žena cvičiaca pilates v prírodnom štúdiu"></div>
+            <div class="hero-image" role="img" aria-label="Ženy cvičia Pilates v štúdiu"></div>
+        </section>
+
+        <section class="section about" id="studio" aria-labelledby="studio-title">
+            <div class="section-inner about-layout">
+                <div class="about-mark" aria-hidden="true">SPOLU</div>
+                <div class="about-copy">
+                    <p class="eyebrow">O štúdiu</p>
+                    <h2 id="studio-title">Priestor, kde sa môžete cítiť prijatá</h2>
+                    <p>
+                        Pilates Studio chce byť viac než miestom na cvičenie. Je to priestor
+                        pre pohyb, vzájomnú podporu a komunitu žien.
+                    </p>
+                    <p>
+                        Súčasťou predstavy štúdia je spoločná káva a tematické rozhovory.
+                        Zapojenie do diskusie je vždy dobrovoľné — môžete si len zacvičiť
+                        a odniesť si z návštevy to, čo vám vyhovuje.
+                    </p>
+                    <a class="text-link" href="#treningy">Spoznajte ponuku tréningov →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="treningy" aria-labelledby="training-title">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">Objavte pohyb</p>
+                    <h2 id="training-title">Vyberte si svoj tréning</h2>
+                    <p>
+                        Tri podoby Pilates s odlišným zameraním. Podrobnosti o náročnosti
+                        a vhodnosti pre začiatočníčky štúdio ešte doplní.
+                    </p>
+                </div>
+                <div class="training-grid">
+                    <article class="training-card">
+                        <img class="training-photo" src="assets/pilates-hero.jpg" alt="Skupinové cvičenie Pilates na podložkách" loading="lazy">
+                        <div class="card-content">
+                            <h3>Reformer</h3>
+                            <p>Cvičenie na reformeri, špeciálnom zariadení určenom na Pilates.</p>
+                            <div class="facts">
+                                <p><strong>Náročnosť:</strong> bude doplnená</p>
+                                <p><strong>Pre začiatočníčky:</strong> informáciu doplní štúdio</p>
+                            </div>
+                            <a class="button secondary" href="#rezervacia" data-select-training="Reformer">Vybrať Reformer</a>
+                        </div>
+                    </article>
+                    <article class="training-card">
+                        <img class="training-photo" src="assets/pilates-hero.jpg" alt="Ženy cvičia Pilates na podložkách" loading="lazy">
+                        <div class="card-content">
+                            <h3>Pilates na podložke</h3>
+                            <p>Cvičenie s vlastnou váhou a pomôckami na podložke, zamerané na vedomý pohyb.</p>
+                            <div class="facts">
+                                <p><strong>Náročnosť:</strong> bude doplnená</p>
+                                <p><strong>Pre začiatočníčky:</strong> informáciu doplní štúdio</p>
+                            </div>
+                            <a class="button secondary" href="#rezervacia" data-select-training="Pilates na podložke">Vybrať tréning</a>
+                        </div>
+                    </article>
+                    <article class="training-card">
+                        <img class="training-photo" src="assets/pilates-hero.jpg" alt="Skupinové cvičenie Pilates v štúdiu" loading="lazy">
+                        <div class="card-content">
+                            <h3>Klasický Pilates</h3>
+                            <p>Klasický prístup k Pilates, pri ktorom sa prepája kontrolovaný pohyb a dych.</p>
+                            <div class="facts">
+                                <p><strong>Náročnosť:</strong> bude doplnená</p>
+                                <p><strong>Pre začiatočníčky:</strong> informáciu doplní štúdio</p>
+                            </div>
+                            <a class="button secondary" href="#rezervacia" data-select-training="Klasický Pilates">Vybrať tréning</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section about" id="trenerky" aria-labelledby="trainer-title">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">Spoznajte nás</p>
+                    <h2 id="trainer-title">Vaše trénerky</h2>
+                    <p>Pri rezervácii si môžete vybrať Viki alebo Jožku. Podrobnejšie medailóniky štúdio doplní.</p>
+                </div>
+                <div class="trainer-grid">
+                    <article class="trainer-card">
+                        <div class="trainer-initial" aria-hidden="true">V</div>
+                        <h3>Viki</h3>
+                        <p>Profil a rozpis tréningov sa pripravuje. Viki si môžete zvoliť v ukážkovom rezervačnom postupe.</p>
+                        <a class="button secondary" href="#rezervacia" data-select-trainer="Viki">Vybrať Viki</a>
+                    </article>
+                    <article class="trainer-card">
+                        <div class="trainer-initial" aria-hidden="true">J</div>
+                        <h3>Jožka</h3>
+                        <p>Profil a rozpis tréningov sa pripravuje. Jožku si môžete zvoliť v ukážkovom rezervačnom postupe.</p>
+                        <a class="button secondary" href="#rezervacia" data-select-trainer="Jožka">Vybrať Jožku</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section pricing" id="cennik" aria-labelledby="price-title">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">Cenník</p>
+                    <h2 id="price-title">Ceny a permanentky</h2>
+                    <p>Skutočné ceny a podmienky zatiaľ nie sú určené. Pred spustením rezervácií ich štúdio doplní.</p>
+                </div>
+                <div class="price-grid">
+                    <article class="price-card">
+                        <h3>Jednorazový vstup</h3>
+                        <p class="price">Cena bude doplnená</p>
+                        <p>Informácia o cene jedného tréningu zatiaľ nie je k dispozícii.</p>
+                    </article>
+                    <article class="price-card">
+                        <h3>Permanentka</h3>
+                        <p class="price">Ponuka sa pripravuje</p>
+                        <p>Počet vstupov, platnosť a cena budú doplnené po ich určení.</p>
+                    </article>
+                    <article class="price-card">
+                        <h3>Platba</h3>
+                        <p class="price">Zatiaľ nenapojená</p>
+                        <p>Táto verzia webu neumožňuje nákup ani platbu online.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section booking" id="rezervacia" aria-labelledby="booking-title">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">Ukážková rezervácia</p>
+                    <h2 id="booking-title">Vyberte si svoj termín</h2>
+                    <p>Prejdite jednotlivé kroky prototypu. Rezervácia sa neodošle ani neuloží.</p>
+                </div>
+                <div class="booking-shell">
+                    <ol class="booking-steps" aria-label="Kroky rezervácie">
+                        <li data-step-label="1">Tréning</li>
+                        <li data-step-label="2">Trénerka</li>
+                        <li data-step-label="3">Dátum</li>
+                        <li data-step-label="4">Čas</li>
+                        <li data-step-label="5">Účet</li>
+                        <li data-step-label="6">Potvrdenie</li>
+                    </ol>
+                    <form id="booking-form" novalidate>
+                        <fieldset class="booking-panel" data-booking-step="1">
+                            <legend class="eyebrow">Krok 1 z 6</legend>
+                            <h3>Aký tréning si želáte?</h3>
+                            <div class="choice-list">
+                                <label class="choice"><input type="radio" name="training" value="Reformer" required><span><strong>Reformer</strong><small>Podrobnosti a náročnosť doplní štúdio.</small></span></label>
+                                <label class="choice"><input type="radio" name="training" value="Pilates na podložke" required><span><strong>Pilates na podložke</strong><small>Podrobnosti a náročnosť doplní štúdio.</small></span></label>
+                                <label class="choice"><input type="radio" name="training" value="Klasický Pilates" required><span><strong>Klasický Pilates</strong><small>Podrobnosti a náročnosť doplní štúdio.</small></span></label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="booking-panel" data-booking-step="2" hidden>
+                            <legend class="eyebrow">Krok 2 z 6</legend>
+                            <h3>Vyberte si trénerku</h3>
+                            <div class="choice-list">
+                                <label class="choice"><input type="radio" name="trainer" value="Viki" required><span><strong>Viki</strong><small>Profil a rozpis tréningov sa pripravuje.</small></span></label>
+                                <label class="choice"><input type="radio" name="trainer" value="Jožka" required><span><strong>Jožka</strong><small>Profil a rozpis tréningov sa pripravuje.</small></span></label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="booking-panel" data-booking-step="3" hidden>
+                            <legend class="eyebrow">Krok 3 z 6</legend>
+                            <h3>Vyberte dátum</h3>
+                            <p>Kalendár je len ukážkový; neukazuje skutočnú dostupnosť štúdia.</p>
+                            <label class="date-field" for="booking-date">Dátum tréningu
+                                <input id="booking-date" name="date" type="date" required>
+                            </label>
+                        </fieldset>
+                        <fieldset class="booking-panel" data-booking-step="4" hidden>
+                            <legend class="eyebrow">Krok 4 z 6</legend>
+                            <h3>Vyberte čas</h3>
+                            <p>Nasledujúce časy sú ukážkové a nepredstavujú dostupné termíny.</p>
+                            <div class="choice-list">
+                                <label class="choice"><input type="radio" name="time" value="09:00" required><span><strong>09:00</strong><small>Ukážkový čas</small></span></label>
+                                <label class="choice"><input type="radio" name="time" value="12:00" required><span><strong>12:00</strong><small>Ukážkový čas</small></span></label>
+                                <label class="choice"><input type="radio" name="time" value="17:00" required><span><strong>17:00</strong><small>Ukážkový čas</small></span></label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="booking-panel" data-booking-step="5" hidden>
+                            <legend class="eyebrow">Krok 5 z 6</legend>
+                            <h3>Prihlásenie alebo registrácia</h3>
+                            <p>
+                                V tomto prototype sa účet nevyžaduje, pretože rezervácia sa nikam neposiela.
+                                Pri reálnej rezervácii štúdio určí, či bude potrebné prihlásenie alebo registrácia.
+                            </p>
+                            <div class="notice">
+                                Zákaznícke konto zatiaľ nie je napojené. Pokračovaním prejdete do rekapitulácie ukážkovej rezervácie.
+                            </div>
+                        </fieldset>
+                        <fieldset class="booking-panel" data-booking-step="6" hidden>
+                            <legend class="eyebrow">Krok 6 z 6</legend>
+                            <h3>Rekapitulácia</h3>
+                            <div class="summary">
+                                <dl>
+                                    <dt>Tréning</dt><dd data-summary="training">—</dd>
+                                    <dt>Trénerka</dt><dd data-summary="trainer">—</dd>
+                                    <dt>Dátum</dt><dd data-summary="date">—</dd>
+                                    <dt>Čas</dt><dd data-summary="time">—</dd>
+                                    <dt>Cena</dt><dd>Cena bude doplnená</dd>
+                                </dl>
+                            </div>
+                            <p class="notice warm">
+                                Ide iba o ukážku. Potvrdením nevznikne skutočná rezervácia a nikto nedostane vaše údaje.
+                            </p>
+                        </fieldset>
+                        <div class="booking-actions" id="booking-actions">
+                            <button class="button secondary" id="booking-back" type="button" hidden>Späť</button>
+                            <button class="button" id="booking-next" type="button">Pokračovať</button>
+                        </div>
+                        <p class="booking-message" id="booking-message" role="status" aria-live="polite"></p>
+                    </form>
+                    <div class="confirmation" id="booking-confirmation" role="status" tabindex="-1" hidden>
+                        <h3>Ukážka dokončená</h3>
+                        <p>Ďakujeme za vyskúšanie. Toto nebola skutočná rezervácia a termín nebol uložený.</p>
+                        <button class="button secondary" id="booking-restart" type="button">Vyskúšať znova</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="profil" aria-labelledby="profile-title">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="eyebrow">Zákaznícky profil</p>
+                    <h2 id="profile-title">Všetko na jednom mieste</h2>
+                    <p>Členská zóna je plánovaná funkcia. Zatiaľ sa tu nedá vytvoriť účet ani spravovať rezervácie.</p>
+                </div>
+                <div class="account-grid">
+                    <article class="account-card">
+                        <h3>Vaše rezervácie</h3>
+                        <p>Prehľad budúcich a minulých termínov je plánovaný.</p>
+                    </article>
+                    <article class="account-card">
+                        <h3>Permanentky</h3>
+                        <p>Prehľad zakúpených vstupov bude dostupný po vytvorení zákazníckeho účtu.</p>
+                    </article>
+                    <article class="account-card">
+                        <h3>Zmena a zrušenie</h3>
+                        <p>Presun alebo zrušenie rezervácie aj storno podmienky treba ešte nastaviť.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact" id="kontakt" aria-labelledby="contact-title">
+            <div class="section-inner contact-layout">
+                <div class="contact-copy">
+                    <p class="eyebrow">Kontakt</p>
+                    <h2 id="contact-title">Radi vás spoznáme</h2>
+                    <p>Kontaktné a prevádzkové údaje štúdio doplní po ich určení.</p>
+                </div>
+                <div class="contact-details">
+                    <p><strong>Adresa:</strong> bude doplnená</p>
+                    <p><strong>Otváracie hodiny:</strong> budú doplnené</p>
+                    <p><strong>Kontakt:</strong> bude doplnený</p>
+                    <p><strong>Storno podmienky:</strong> budú doplnené</p>
+                </div>
+            </div>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <p>Pilates Studio · Ukážkový webový prototyp</p>
+    </footer>
+
+    <script>
+        const form = document.querySelector("#booking-form");
+        const panels = [...document.querySelectorAll("[data-booking-step]")];
+        const stepLabels = [...document.querySelectorAll("[data-step-label]")];
+        const backButton = document.querySelector("#booking-back");
+        const nextButton = document.querySelector("#booking-next");
+        const message = document.querySelector("#booking-message");
+        const confirmation = document.querySelector("#booking-confirmation");
+        const dateInput = document.querySelector("#booking-date");
+        let currentStep = 1;
+
+        dateInput.min = new Date().toISOString().slice(0, 10);
+
+        function showStep(step) {
+            currentStep = step;
+            panels.forEach((panel) => {
+                panel.hidden = Number(panel.dataset.bookingStep) !== step;
+            });
+            stepLabels.forEach((label) => {
+                if (Number(label.dataset.stepLabel) === step) {
+                    label.setAttribute("aria-current", "step");
+                } else {
+                    label.removeAttribute("aria-current");
+                }
+            });
+            backButton.hidden = step === 1;
+            nextButton.textContent = step === 6 ? "Potvrdiť ukážku" : "Pokračovať";
+            message.textContent = "";
+        }
+
+        function validateCurrentStep() {
+            const panel = panels[currentStep - 1];
+            const requiredInputs = [...panel.querySelectorAll("input[required]")];
+            const missingInput = requiredInputs.find((input) => {
+                if (input.type === "radio") {
+                    return !panel.querySelector(`input[name="${input.name}"]:checked`);
+                }
+                return !input.value || (input.type === "date" && input.value < dateInput.min);
+            });
+
+            if (missingInput) {
+                message.textContent = currentStep === 3 && dateInput.value && dateInput.value < dateInput.min
+                    ? "Vyberte dnešný alebo neskorší dátum."
+                    : "Pred pokračovaním vyberte možnosť.";
+                missingInput.focus();
+                return false;
+            }
+            return true;
+        }
+
+        function updateSummary() {
+            const selected = (name) => form.querySelector(`input[name="${name}"]:checked`)?.value || "—";
+            const rawDate = dateInput.value;
+            const date = rawDate
+                ? new Intl.DateTimeFormat("sk-SK", { dateStyle: "long", timeZone: "UTC" })
+                    .format(new Date(`${rawDate}T12:00:00Z`))
+                : "—";
+
+            document.querySelector('[data-summary="training"]').textContent = selected("training");
+            document.querySelector('[data-summary="trainer"]').textContent = selected("trainer");
+            document.querySelector('[data-summary="date"]').textContent = date;
+            document.querySelector('[data-summary="time"]').textContent = selected("time");
+        }
+
+        nextButton.addEventListener("click", () => {
+            if (currentStep === 6) {
+                form.hidden = true;
+                confirmation.hidden = false;
+                confirmation.focus();
+                return;
+            }
+            if (!validateCurrentStep()) return;
+            if (currentStep === 5) updateSummary();
+            showStep(currentStep + 1);
+            panels[currentStep - 1].querySelector("input, button")?.focus();
+        });
+
+        backButton.addEventListener("click", () => showStep(currentStep - 1));
+
+        document.querySelector("#booking-restart").addEventListener("click", () => {
+            form.reset();
+            form.hidden = false;
+            confirmation.hidden = true;
+            showStep(1);
+            document.querySelector("#booking-title").scrollIntoView({ behavior: "smooth" });
+        });
+
+        document.querySelectorAll("[data-select-training]").forEach((link) => {
+            link.addEventListener("click", () => {
+                const input = [...form.querySelectorAll('input[name="training"]')]
+                    .find((item) => item.value === link.dataset.selectTraining);
+                if (input) input.checked = true;
+                showStep(1);
+            });
+        });
+
+        document.querySelectorAll("[data-select-trainer]").forEach((link) => {
+            link.addEventListener("click", () => {
+                const input = [...form.querySelectorAll('input[name="trainer"]')]
+                    .find((item) => item.value === link.dataset.selectTrainer);
+                if (input) input.checked = true;
+            });
+        });
+    </script>
 </body>
 </html>
